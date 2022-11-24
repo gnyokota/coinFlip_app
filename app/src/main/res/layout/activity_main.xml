@@ -4,15 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_700"
     tools:context=".MainActivity">
 
-    <TextView
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/main_activity_sw_simulate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/coda"
+        android:padding="20dp"
+        android:text="@string/switch_text"
+        android:textColor="@color/blue_500"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@color/red_700"
+        app:trackTint="@color/blue_500" />
+
+    <ImageView
+        android:id="@+id/main_activity_iv_thumbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/thumb_icon_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_sw_simulate"
+        app:srcCompat="@drawable/ic_thumb_icon" />
+
+    <Button
+        android:id="@+id/main_activity_bt_flip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue_700"
+        android:fontFamily="@font/coda"
+        android:padding="4dp"
+        android:text="@string/flip_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_bt_reset"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_iv_thumbs"
+        app:layout_constraintVertical_bias="0.10" />
+
+    <Button
+        android:id="@+id/main_activity_bt_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue_700"
+        android:fontFamily="@font/coda"
+        android:padding="4dp"
+        android:text="@string/reset_text"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/main_activity_bt_flip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/main_activity_bt_flip"
+        app:layout_constraintTop_toTopOf="@+id/main_activity_bt_flip"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

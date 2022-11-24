@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CoinFlip</string>
+    <string name="switch_text">Simulation Mode</string>
+    <string name="thumb_icon_description">A thumbs up icon</string>
+    <string name="flip_text">Flip</string>
+    <string name="reset_text">Reset</string>
 </resources>
