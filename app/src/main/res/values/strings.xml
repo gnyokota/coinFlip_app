@@ -4,4 +4,11 @@
     <string name="thumb_icon_description">A thumbs up icon</string>
     <string name="flip_text">Flip</string>
     <string name="reset_text">Reset</string>
+    <string name="placeholder_text_total_flips">Total Flips: 0</string>
+    <string name="placeholder_text_total_heads">Total heads: 0</string>
+    <string name="placeholder_text_total_tails">Total Tails: 0</string>
+    <string name="placeholder_text_heads_stats">Heads: 0%</string>
+    <string name="placeholder_text_tails_stats">Tails: 0%</string>
+    <string name="random_number_hint">Random # of Flips</string>
+    <string name="random_btn_text">random</string>
 </resources>
