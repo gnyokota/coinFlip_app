@@ -188,7 +188,8 @@
         app:layout_constraintEnd_toStartOf="@+id/main_activity_bt_random_flips"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_pb_tails" />
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_pb_tails"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/main_activity_bt_random_flips"
