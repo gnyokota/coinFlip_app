@@ -9,6 +9,6 @@
     <string name="placeholder_text_total_tails">Total Tails: 0</string>
     <string name="placeholder_text_heads_stats">Heads: 0%</string>
     <string name="placeholder_text_tails_stats">Tails: 0%</string>
-    <string name="random_number_hint">Random # of Flips</string>
-    <string name="random_btn_text">random</string>
+    <string name="simulation_number_hint">Simulate Flips</string>
+    <string name="simulation_btn_text">Simulate</string>
 </resources>

@@ -24,21 +24,21 @@
     <ImageView
         android:id="@+id/main_activity_iv_thumbs"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="18dp"
+        android:layout_height="wrap_content"
         android:contentDescription="@string/thumb_icon_description"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_activity_sw_simulate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.05"
         app:srcCompat="@drawable/ic_thumb_icon" />
 
     <Button
         android:id="@+id/main_activity_bt_flip"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/blue_700"
         android:fontFamily="@font/coda"
         android:padding="4dp"
@@ -55,8 +55,7 @@
         android:id="@+id/main_activity_bt_reset"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
         android:backgroundTint="@color/blue_700"
         android:fontFamily="@font/coda"
         android:padding="4dp"
@@ -121,7 +120,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:max="100"
-        android:progress="25"
         android:progressBackgroundTint="#3F51B5"
         android:progressTint="#3F51B5"
         android:scaleY="4"
@@ -136,7 +134,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:max="100"
-        android:progress="50"
         android:progressBackgroundTint="#3F51B5"
         android:progressTint="#3F51B5"
         android:scaleY="4"
@@ -156,7 +153,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_activity_pb_heads"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_activity_tv_total_heads"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.100000024"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
@@ -172,36 +169,41 @@
         app:layout_constraintTop_toBottomOf="@+id/main_activity_pb_heads" />
 
     <EditText
-        android:id="@+id/main_activity_et_random_number"
+        android:id="@+id/main_activity_et_simulate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:layout_marginEnd="9dp"
+        android:autofillHints=""
         android:backgroundTint="@color/red_700"
         android:ems="10"
         android:fontFamily="@font/coda"
-        android:hint="@string/random_number_hint"
+        android:hint="@string/simulation_number_hint"
         android:inputType="number"
+        android:textAlignment="center"
         android:textColor="@color/red_700"
         android:textColorHint="@color/red_700"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/main_activity_bt_random_flips"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_bt_simulate"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_activity_pb_tails"
-        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+        app:layout_constraintVertical_bias="0.25"
+        tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck,TextContrastCheck" />
 
     <Button
-        android:id="@+id/main_activity_bt_random_flips"
+        android:id="@+id/main_activity_bt_simulate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="9dp"
-        android:backgroundTint="@color/red_700"
-        android:text="@string/random_btn_text"
-        app:layout_constraintBottom_toBottomOf="@+id/main_activity_et_random_number"
+        android:backgroundTint="@color/blue_700"
+        android:text="@string/simulation_btn_text"
+        app:layout_constraintBottom_toBottomOf="@+id/main_activity_et_simulate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/main_activity_et_random_number"
-        app:layout_constraintTop_toTopOf="@+id/main_activity_et_random_number" />
+        app:layout_constraintHorizontal_weight="2"
+        app:layout_constraintStart_toEndOf="@+id/main_activity_et_simulate"
+        app:layout_constraintTop_toTopOf="@+id/main_activity_et_simulate"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
