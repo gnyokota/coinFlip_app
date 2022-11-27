@@ -1,7 +1,11 @@
 package com.hello.coinflip
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -54,7 +58,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun enableSimulation(onState: Boolean) {
-
+        if(onState){
+            Log.i("test","Sim is on")
+            simulationText.visibility = View.VISIBLE
+            simulationBtn.visibility = View.VISIBLE
+        }else{
+            Log.i("test","Sim is off")
+            simulationText.visibility = View.INVISIBLE
+            simulationBtn.visibility = View.INVISIBLE
+        }
     }
 
     private fun flip() {
@@ -75,30 +87,49 @@ class MainActivity : AppCompatActivity() {
             coinImage.setImageResource(R.drawable.ic_head_icon)
         }
         total++
-        totalFlips.setText("Total Flips: $total")
-        totalHeads.setText("Total Heads: $heads")
-        totalTails.setText("Total Tails: $tails")
-        updateProgress(isTails)
+        totalFlips.text = "Total Flips: $total"
+        totalHeads.text = "Total Heads: $heads"
+        totalTails.text = "Total Tails: $tails"
+        updateProgress()
     }
 
-    private fun updateProgress(isTails: Boolean) {
-        if (isTails) {
-            val tailsPercentValue = round((tails.toDouble() / total.toDouble()) * 100)
-            tailsProgressBar.progress = tailsPercentValue.toInt()
-            tailsPercent.text = "Tails: $tailsPercentValue%"
-
-        } else {
-            val headsPercentValue = round((heads.toDouble() / total.toDouble()) * 100)
-            headsProgressBar.progress = headsPercentValue.toInt()
-            headsPercent.text = "Tails: $headsPercentValue%"
-        }
+    private fun updateProgress() {
+        val tailsPercentValue = round((tails.toDouble() / total) * 10000)/100
+        tailsProgressBar.progress = tailsPercentValue.toInt()
+        tailsPercent.text = "Tails: $tailsPercentValue%"
+        val headsPercentValue = round((heads.toDouble() / total) * 10000)/100
+        headsProgressBar.progress = headsPercentValue.toInt()
+        headsPercent.text = "Tails: $headsPercentValue%"
     }
 
     private fun reset() {
-
+        coinImage.setImageResource(R.drawable.ic_thumb_icon)
+        heads = 0
+        tails = 0
+        total = 0
+        totalFlips.setText("Total Flips: $total")
+        totalHeads.setText("Total Heads: $heads")
+        totalTails.setText("Total Tails: $tails")
+        headsProgressBar.progress = 0
+        headsPercent.text = "Tails: 0%"
+        tailsProgressBar.progress = 0
+        tailsPercent.text = "Tails: 0%"
     }
 
     private fun simulation() {
+        var numberOfFlips = 1
+        if(!simulationText.text.toString().isBlank()) {
+            numberOfFlips = simulationText.text.toString().toInt()
+        }
+        simulationText.setText("")
+        hideKeyboard()
+        for(i in 1..numberOfFlips){
+            flip()
+        }
+    }
 
+    private fun hideKeyboard(){
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(coinImage.windowToken,0)
     }
 }
