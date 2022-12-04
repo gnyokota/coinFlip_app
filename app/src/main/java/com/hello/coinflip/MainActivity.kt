@@ -1,71 +1,46 @@
 package com.hello.coinflip
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import com.hello.coinflip.databinding.ActivityMainBinding
 import kotlin.math.round
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var coinImage: ImageView
-    private lateinit var simSwitch: SwitchCompat
-    private lateinit var flipBtn: Button
-    private lateinit var resetBtn: Button
-    private lateinit var totalFlips: TextView
-    private lateinit var totalHeads: TextView
-    private lateinit var totalTails: TextView
-    private lateinit var headsPercent: TextView
-    private lateinit var headsProgressBar: ProgressBar
-    private lateinit var tailsPercent: TextView
-    private lateinit var tailsProgressBar: ProgressBar
-    private lateinit var simulationText: EditText
-    private lateinit var simulationBtn: Button
+    private lateinit var binding: ActivityMainBinding
 
     private var heads = 0
     private var tails = 0
     private var total = 0
 
+    var coinStatus = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
 
-        coinImage = findViewById(R.id.main_activity_iv_thumbs)
-        simSwitch = findViewById(R.id.main_activity_sw_simulate)
-        flipBtn = findViewById(R.id.main_activity_bt_flip)
-        resetBtn = findViewById(R.id.main_activity_bt_reset)
-        totalFlips = findViewById(R.id.main_actiity_tv_total_flips)
-        totalHeads = findViewById(R.id.main_activity_tv_total_heads)
-        totalTails = findViewById(R.id.main_activity_tv_total_tails)
-        headsPercent = findViewById(R.id.main_activity_heads_stats)
-        headsProgressBar = findViewById(R.id.main_activity_pb_heads)
-        tailsPercent = findViewById(R.id.main_activity_tails_stats)
-        tailsProgressBar = findViewById(R.id.main_activity_pb_tails)
-        simulationText = findViewById(R.id.main_activity_et_simulate)
-        simulationBtn = findViewById(R.id.main_activity_bt_simulate)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.mainActivity = this
 
-        simSwitch.setOnCheckedChangeListener { _, isChecked -> enableSimulation(isChecked) }
-        flipBtn.setOnClickListener { flip() }
-        resetBtn.setOnClickListener { reset() }
-        simulationBtn.setOnClickListener { simulation() }
+        binding.mainActivitySwSimulate.setOnCheckedChangeListener { _, isChecked -> enableSimulation(isChecked) }
+        binding.mainActivityBtFlip.setOnClickListener { flip() }
+        binding.mainActivityBtReset.setOnClickListener { reset() }
+        binding.mainActivityBtSimulate.setOnClickListener { simulation() }
     }
 
     private fun enableSimulation(onState: Boolean) {
         if(onState){
             Log.i("test","Sim is on")
-            simulationText.visibility = View.VISIBLE
-            simulationBtn.visibility = View.VISIBLE
+            binding.mainActivityEtSimulate.visibility = View.VISIBLE
+            binding.mainActivityBtSimulate.visibility = View.VISIBLE
         }else{
             Log.i("test","Sim is off")
-            simulationText.visibility = View.INVISIBLE
-            simulationBtn.visibility = View.INVISIBLE
+            binding.mainActivityEtSimulate.visibility = View.INVISIBLE
+            binding.mainActivityBtSimulate.visibility = View.INVISIBLE
         }
     }
 
@@ -80,48 +55,55 @@ class MainActivity : AppCompatActivity() {
     private fun update(isTails: Boolean) {
         if (isTails) {
             tails++
-            coinImage.setImageResource(R.drawable.ic_tail_icon)
+            coinStatus = "You fliped a tail"
+            binding.mainActivityIvThumbs.setImageResource(R.drawable.ic_tail_icon)
 
         } else {
             heads++
-            coinImage.setImageResource(R.drawable.ic_head_icon)
+            coinStatus = "You fliped a head"
+            binding.mainActivityIvThumbs.setImageResource(R.drawable.ic_head_icon)
         }
+        //invalidate binding expressions
+        binding.apply { invalidateAll() }
         total++
-        totalFlips.text = "Total Flips: $total"
-        totalHeads.text = "Total Heads: $heads"
-        totalTails.text = "Total Tails: $tails"
+        binding.mainActiityTvTotalFlips.text = "Total Flips: $total"
+        binding.mainActivityTvTotalHeads.text = "Total Heads: $heads"
+        binding.mainActivityTvTotalTails.text = "Total Tails: $tails"
         updateProgress()
     }
 
     private fun updateProgress() {
         val tailsPercentValue = round((tails.toDouble() / total) * 10000)/100
-        tailsProgressBar.progress = tailsPercentValue.toInt()
-        tailsPercent.text = "Tails: $tailsPercentValue%"
+        binding.mainActivityPbTails.progress = tailsPercentValue.toInt()
+        binding.mainActivityTailsStats.text = "Tails: $tailsPercentValue%"
         val headsPercentValue = round((heads.toDouble() / total) * 10000)/100
-        headsProgressBar.progress = headsPercentValue.toInt()
-        headsPercent.text = "Tails: $headsPercentValue%"
+        binding.mainActivityPbHeads.progress = headsPercentValue.toInt()
+        binding.mainActivityHeadsStats.text = "Tails: $headsPercentValue%"
     }
 
     private fun reset() {
-        coinImage.setImageResource(R.drawable.ic_thumb_icon)
+       binding.mainActivityIvThumbs.setImageResource(R.drawable.ic_thumb_icon)
         heads = 0
         tails = 0
         total = 0
-        totalFlips.setText("Total Flips: $total")
-        totalHeads.setText("Total Heads: $heads")
-        totalTails.setText("Total Tails: $tails")
-        headsProgressBar.progress = 0
-        headsPercent.text = "Tails: 0%"
-        tailsProgressBar.progress = 0
-        tailsPercent.text = "Tails: 0%"
+        binding.mainActiityTvTotalFlips.setText("Total Flips: $total")
+        binding.mainActivityTvTotalHeads.setText("Total Heads: $heads")
+        binding.mainActivityTvTotalTails.setText("Total Tails: $tails")
+        binding.mainActivityPbHeads.progress = 0
+        binding.mainActivityHeadsStats.text = "Heads: 0%"
+        binding.mainActivityPbTails.progress = 0
+        binding.mainActivityTailsStats.text = "Tails: 0%"
+        coinStatus = "Press to flip"
+        //invalidate binding expressions
+        binding.apply { invalidateAll() }
     }
 
     private fun simulation() {
         var numberOfFlips = 1
-        if(!simulationText.text.toString().isBlank()) {
-            numberOfFlips = simulationText.text.toString().toInt()
+        if(!binding.mainActivityEtSimulate.text.toString().isBlank()) {
+            numberOfFlips = binding.mainActivityEtSimulate.text.toString().toInt()
         }
-        simulationText.setText("")
+        binding.mainActivityEtSimulate.setText("")
         hideKeyboard()
         for(i in 1..numberOfFlips){
             flip()
@@ -130,6 +112,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideKeyboard(){
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(coinImage.windowToken,0)
+        imm.hideSoftInputFromWindow(binding.mainActivityIvThumbs.windowToken,0)
     }
 }
